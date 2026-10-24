@@ -1,21 +1,25 @@
-# Ashen Crown — mobile MOBA vertical slice
+# Ashen Crown — Unity mobile MOBA prototype
 
-Оригинальная MOBA в тёмном фэнтези. Стартовый Unity-проект с процедурной ареной и локальным матчем против ботов. 3D-геометрия пока заглушечная, не финальные игровые ассеты.
+Original dark-fantasy arena prototype built with Unity 2022.3 LTS. The current vertical slice uses procedural primitive geometry and placeholder visuals.
 
-## Unity project
+## Project layout
 
-- Unity 2022.3 LTS
-- Android build target (GitHub Actions workflow)
-- Runtime prototype: `Assets/AshenCrown/Runtime/AshenCrownGame.cs`
+- `Assets/AshenCrown/Runtime/AshenCrownGame.cs` — runtime arena, hero, enemy actors, basic combat, abilities and HUD.
+- `Assets/Editor/AshenCrownBuild.cs` — creates a boot scene and builds an Android APK in batch mode.
+- `.github/workflows/unity-android.yml` — build on pushes to `main` or manual dispatch.
 
-## Local setup
+## Automatic Android build
 
-Open this repository as a Unity project using Unity 2022.3 LTS with Android Build Support installed. Open `Assets/Scenes/AshenCrown.unity` once it is added, or create a scene, add an empty `GameRoot` object, and attach `AshenCrownGame.cs`. Add an EventSystem if needed, then press Play. On desktop, move with WASD/arrow keys, attack with Space, and use abilities with Q/W/E. On touch devices, use the on-screen joystick and HUD buttons.
+1. In the repository's **Settings → Secrets and variables → Actions**, add a repository secret named `UNITY_LICENSE` containing a valid Unity license file for the Unity version used by this project.
+2. Open the **Actions** tab and select **Unity Android Build**. The workflow also runs automatically on pushes to `main`.
+3. On success, download the `AshenCrown-Android` artifact from the workflow run.
 
-## CI build
+The workflow has been committed and its first run has been queued. A successful APK is not yet confirmed; Unity licensing and build logs must be checked.
 
-The workflow `.github/workflows/unity-android.yml` runs on pushes and can be started manually. Add a Unity Personal/Plus/Pro license as the repository Actions secret `UNITY_LICENSE` before the Unity build step can succeed. Build output is uploaded as a workflow artifact when the build succeeds.
+## Current prototype controls
 
-## Scope and limitations
+On desktop: WASD/arrow keys to move, Space to attack, Q/W/E for abilities. The HUD contains touch-sized action buttons. Touch movement still needs a proper virtual joystick implementation.
 
-This is a prototype, not a finished commercial game. Models and audio are placeholders; online multiplayer is not implemented; device performance has not been measured. The vertical slice includes a basic economy, levels, abilities, bots, towers, creep waves, and win/loss conditions. A production MOBA still needs authoritative server simulation, navigation/pathing, more complete itemization, art, audio, QA, and device profiling.
+## Limitations
+
+This is an early prototype, not a finished commercial MOBA. It has no online multiplayer, final art/audio, full tower/core objectives, or production-quality pathfinding. It has not yet been compiled or tested on a physical Android device.
